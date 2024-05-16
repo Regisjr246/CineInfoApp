@@ -22,6 +22,10 @@ const CadastroFilmes: React.FC = () => {
 
 
     
+
+
+
+    
    const validateForm = () => {
         const newErrors: any = {};
     
