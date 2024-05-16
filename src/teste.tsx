@@ -178,7 +178,7 @@ const CadastroClienteInvestidor: React.FC = () => {
 <View>
     <Text style={styles.text}>Email</Text>
     <TextInput keyboardType={'email-address'} placeholder="E-mail" style={styles.input} value={email} onChangeText={setEmail}></TextInput>
-    {renderError('email')}
+    {renderError('titulo')}
 </View>
 
 <View>

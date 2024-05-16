@@ -15,9 +15,61 @@ const CadastroFilmes: React.FC = () => {
     const [classificacao, setClassificacao] = useState<string>('');
     const [plataformas, setPlataformas] = useState<string>('');
     const [duracao, setDuracao] = useState<string>('');
+    const [message, setMessage] = useState<string>('');
+    const [errors, setErrors] = useState<any>({});
+
+
+
+
+    
+   const validateForm = () => {
+        const newErrors: any = {};
+    
+        if (!titulo) {
+          newErrors.titulo = "O campo titulo é obrigatório";
+        }
+    
+        if (!diretor) {
+          newErrors.diretor = "O campo diretor é obrigatório";
+        }
+    
+        if (!genero) {
+          newErrors.genero = "O campo genero é obrigatório";
+        }
+    
+        if (!dt_lancamento) {
+          newErrors.dt_lancamento = "O campo dt_lancamento é obrigatório";
+        }
+    
+        if (!sinopse) {
+          newErrors.sinopse = "O campo sinopse é obrigatório";
+        }
+    
+        if (!classificacao) {
+          newErrors.classificacao = "O campo classificacao é obrigatório";
+        }
+        if (!plataformas) {
+            newErrors.plataformas = "O campo plataformas é obrigatório";
+          }
+          if (!duracao) {
+            newErrors.duracao = "O campo duracao é obrigatório";
+          }
+        
+    
+    
+        setErrors(newErrors);
+    
+        return !Object.keys(newErrors).length;
+      };
+
+
+
+
+
+
 
     const cadastrarFilmes = async () => {
-
+        if (validateForm()) {
         try{
         const formData = new FormData();
         formData.append('titulo', titulo);
@@ -33,36 +85,44 @@ const CadastroFilmes: React.FC = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-        const response = await axios.post('http://10.137.11.215:8000/api/filmes/cadastro', formData, {
-            
+        const response = await axios.post('http://10.137.11.215:8000/api/filmes/cadastro',
+         formData, 
+        {
             headers: {
                 'Content-Type': 'multipart/form-data'
-            }            
-        });
-        
-    } catch(error) {
-        console.log(error);
-    }
-    }
+            },
+        }
+        );setMessage('Filme cadastrado');
+            setTimeout(() => setMessage(''), 3000);
+            setTitulo('');
+            setDiretor('');
+            setGenero('');
+            setDt_lancamento('');
+            setSinopse('');
+            setElenco('');
+            setClassificacao('');
+            setPlataformas('');
+            setDuracao('');
+          } catch (error) {
+            if (error.response && error.response.data && error.response.data.errors) {
+              setErrors(error.response.data.errors);
+            } else {
+              setMessage('Não cadastrado');
+              setTimeout(() => setMessage(''), 3000);
+            }
+          }
+        }
+      };
+      const renderError = (name: string) => {
+        if (errors[name]) {
+          return <Text style={styles.errorText}>{errors[name]}</Text>;
+        }
+        return null;
+      };
 
 
 
-
+    
 
 
 
@@ -76,17 +136,19 @@ const CadastroFilmes: React.FC = () => {
             <TouchableOpacity>
             <Image source={require('./assets/images/logo.png')} style={styles.Logo} />
             </TouchableOpacity>
+            <View style={styles.alinha}>{message && <View style={styles.message}><Text style={styles.messageText}>{message}</Text></View>}</View>
 
             <ScrollView style={styles.Login}>
 
                 <Text style={styles.Text1}>--------------- Cadastrar Stream ----------------</Text>
 
-             
+             <View>
+                {renderError('titulo')}
                 <TextInput style={styles.input} placeholder="Título" placeholderTextColor="#D94F04"
-                    value={titulo} onChangeText={setTitulo}
-                />
+                    value={titulo} onChangeText={setTitulo} 
+                />  
 
-            
+</View>
                 <TextInput style={styles.input} placeholder="Diretor" placeholderTextColor="#D94F04"
                     value={diretor} onChangeText={setDiretor}
                 />
@@ -114,7 +176,7 @@ const CadastroFilmes: React.FC = () => {
                 
               
                 <TextInput style={styles.inputSinopse} placeholder="Sinopse" placeholderTextColor="#D94F04"
-                      value={sinopse} onChangeText={setSinopse}
+                      value={sinopse} onChangeText={setSinopse} multiline
                 />
 
            
@@ -137,7 +199,6 @@ const CadastroFilmes: React.FC = () => {
                 <TouchableOpacity style={styles.button} onPress={cadastrarFilmes}>
                     <Text style={styles.buttonText}>Cadastrar</Text>
                 </TouchableOpacity>
-
 
 
 
@@ -281,6 +342,28 @@ const styles = StyleSheet.create({
     width: 360,
     height:100,
     
-}
+},
+errorText: {
+    color: 'red',
+    marginLeft: 15,
+    marginVertical: 2,
+    fontSize: 15,
+},
+message: {
+    backgroundColor: 'green',
+    padding: 8,
+    borderRadius: 5,
+    marginTop: 1,
+    alignItems: 'center',
+    width:300
+   
+  },
+  messageText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  alinha:{
+    alignItems:'center'
+  }
 });
 export default CadastroFilmes;
