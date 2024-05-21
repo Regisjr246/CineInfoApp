@@ -1,15 +1,24 @@
-import React from "react";
-import LoginScreen from "./src/LoginScreen";
-import Icons from "./src/screens/Icons";
-import CadastroFilmes from "./src/CadastroFilme";
-import ListagemFilmes from "./src/Listagem";
+import React from 'react';
+import CadastroFilme from './src/screens/CadastroFilme';
+import AtualizarFilme from './src/screens/Atualizar';
 
-function App(): React.JSX.Element{
+import Listagem from './src/screens/Listagem';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+const Stack = createStackNavigator();
+
+function App(): React.ReactElement {
   return (
-   // <LoginScreen/>
-    //<Icons/>
-   // <CadastroFilmes/>
- < ListagemFilmes/>
+    <NavigationContainer>
+      <Stack.Navigator >
+      <Stack.Screen name='Cadastro' component={CadastroFilme} 
+        options={{ headerShown: false }} />
+       
+       <Stack.Screen name='listagem' component={Listagem}
+         options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
