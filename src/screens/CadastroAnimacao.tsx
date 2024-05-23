@@ -4,17 +4,17 @@ import { Image, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpa
 import Footer from "../components/Footer";
 import FooterAdm from "../components/FooterAdm";
 
-const CadastroFilme: React.FC = () => {
-    const [filme, setFilme] = useState<[]>([]);
+const CadastroAnimacao: React.FC = () => {
+    const [animacao, setAnimacao] = useState<[]>([]);
     const [titulo, setTitulo] = useState<string>('');
     const [diretor, setDiretor] = useState<string>('');
+    const [studio, setStudio] = useState<string>('');
     const [genero, setGenero] = useState<string>('');
     const [dt_lancamento, setDt_lancamento] = useState<string>('');
     const [sinopse, setSinopse] = useState<string>('');
-    const [elenco, setElenco] = useState<string>('');
     const [classificacao, setClassificacao] = useState<string>('');
     const [plataformas, setPlataformas] = useState<string>('');
-    const [duracao, setDuracao] = useState<string>('');
+    const [episodios, setEpisodios] = useState<string>('');
     const [errors, setErrors] = useState<any>({});
     const [message, setMessage] = useState<string>('');
 
@@ -27,6 +27,9 @@ const CadastroFilme: React.FC = () => {
       }
       if (!diretor) {
         newErrors.diretor = "O campo diretor é obrigatório";
+      }
+      if (!studio) {
+        newErrors.studio = "O campo studio é obrigatório";
       }
       if (!genero) {
         newErrors.genero = "O campo gênero é obrigatório";
@@ -43,8 +46,8 @@ const CadastroFilme: React.FC = () => {
       if (!plataformas) {
         newErrors.plataformas = "O campo plataformas é obrigatório";
       }
-      if (!duracao) {
-        newErrors.duracao = "O campo duração é obrigatório";
+      if (!episodios) {
+        newErrors.episodios = "O campo episodios é obrigatório";
       }
       setErrors(newErrors);
   
@@ -52,21 +55,21 @@ const CadastroFilme: React.FC = () => {
     };
 
 
-    const cadastrarFilme = async () => {
+    const cadastrarAnimacao = async () => {
         if (validateForm()) {
         try{
         const formData = new FormData();
         formData.append('titulo', titulo);
         formData.append('diretor', diretor);
+        formData.append('studio', studio);
         formData.append('genero', genero);
         formData.append('dt_lancamento', dt_lancamento);
         formData.append('sinopse', sinopse);
-        formData.append('elenco', elenco);
         formData.append('classificacao', classificacao);
         formData.append('plataformas', plataformas);
-        formData.append('duracao', duracao);
+        formData.append('episodios', episodios);
 
-        const response = await axios.post('http://10.137.11.215:8000/api/filmes/cadastro', formData, {
+        const response = await axios.post('http://10.137.11.213:8000/api/series/cadastro', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }            
@@ -75,13 +78,13 @@ const CadastroFilme: React.FC = () => {
         setTimeout(() => setMessage(''), 3000);
         setTitulo('');
         setDiretor('');
+        setStudio('');
         setGenero('');
         setDt_lancamento('');
         setSinopse('');
-        setElenco('');
         setClassificacao('');
         setPlataformas('');
-        setDuracao('');
+        setEpisodios('');
       } catch (error) {
         if (error.response && error.response.data && error.response.data.errors) {
           setErrors(error.response.data.errors);
@@ -96,7 +99,7 @@ const CadastroFilme: React.FC = () => {
   const renderError = (name: string) => {
     if (errors[name]) {
       if (name === 'titulo' && errors[name].unique) {
-        return <Text style={styles.errorText}>Titulo already exists</Text>;
+        return <Text style={styles.errorText}>Titulo já existe</Text>;
       }
       return <Text style={styles.errorText}>{errors[name]}</Text>;
     }
@@ -112,7 +115,7 @@ const CadastroFilme: React.FC = () => {
 
             <ScrollView style={styles.scroll}>
 
-                <Text style={styles.Text1}>--------------- Cadastrar Stream ----------------</Text>
+                <Text style={styles.Text1}>--------------- Cadastrar serie ----------------</Text>
                 
                 <View style={styles.alinhamento}>
                 <TextInput style={styles.input} placeholder="titulo"
@@ -124,6 +127,12 @@ const CadastroFilme: React.FC = () => {
                 <TextInput style={styles.input} placeholder="Diretor"
                 value={diretor} onChangeText={setDiretor}/>
                 {renderError('diretor')}
+                </View>
+
+                <View style={styles.alinhamento}>
+                <TextInput style={styles.input} placeholder="Studio"
+                value={studio} onChangeText={setStudio}/>
+                {renderError('studio')}
                 </View>
 
                 <View style={styles.alinhamentoGDt}>
@@ -145,9 +154,9 @@ const CadastroFilme: React.FC = () => {
                 </View>
 
                 <View style={styles.alinhamentoCD}>
-                <TextInput style={styles.inputDuracao} placeholder="Duracao"
-                value={duracao} onChangeText={setDuracao}/>
-                {renderError('duracao')}
+                <TextInput style={styles.inputDuracao} placeholder="Episodios"
+                value={episodios} onChangeText={setEpisodios}/>
+                {renderError('episodios')}
                 </View>
 
                 <View style={styles.alinhamento}>
@@ -157,19 +166,13 @@ const CadastroFilme: React.FC = () => {
                 </View>
 
                 <View style={styles.alinhamento}>
-                <TextInput style={styles.input} placeholder="Elenco"
-                value={elenco} onChangeText={setElenco} multiline/>
-                {renderError('elenco')}
-                </View>
-
-                <View style={styles.alinhamento}>
                 <TextInput style={styles.input} placeholder="plataformas"
                 value={plataformas} onChangeText={setPlataformas}/>
                 {renderError('plataformas')}
                 </View>
 
         
-                <TouchableOpacity style={styles.button} onPress={cadastrarFilme}>
+                <TouchableOpacity style={styles.button} onPress={cadastrarAnimacao}>
                     <Text style={styles.buttonText}>Cadastrar</Text>
                 </TouchableOpacity>
 
@@ -298,4 +301,4 @@ const styles = StyleSheet.create({
 }
 })
 
-export default CadastroFilme;
+export default CadastroAnimacao;
