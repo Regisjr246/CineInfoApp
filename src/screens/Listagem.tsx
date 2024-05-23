@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, Button } from "react-native";
 import Footer from "../components/Footer";
 import FooterAdm from "../components/FooterAdm";
+import Pesquisar from "../components/Pesquisar";
+import { TextInput } from "react-native-paper";
 
 interface Filme {
   id: string;
@@ -19,7 +21,8 @@ interface Filme {
 }
 
 const Listagem: React.FC = () => {
-  const [filmes, setFilmes] = useState<Filme[]>([]);
+  const [pesquisa, setPesquisa] = useState<string>("");
+  const [filmes, setFilmes] = useState<any[]>([]);
   const [elementVisible, setElementVisible] = useState(false);
 
   useEffect(() => {
@@ -28,11 +31,14 @@ const Listagem: React.FC = () => {
 
   const ListagemFilmes = async () => {
     try {
-      const response = await axios.get('http://10.137.11.215:8000/api/filmes/listagem');
-      if (response.status === 200) {
+      if(pesquisa != ""){
+        const response = await axios.get('http://10.137.11.215/api/adm/filmes/pesquisar/'+pesquisa);
         setFilmes(response.data.data);
-        console.log(filmes);
+      } else { 
+      const response = await axios.get('http://10.137.11.215/api/adm/filmes/listagem');
+      setFilmes(response.data.data);
       }
+   // console.log(filmes)
     } catch (error) {
       console.log(error);
     }
@@ -65,13 +71,20 @@ const Listagem: React.FC = () => {
         <TouchableOpacity>
           <Image source={require('../assets/images/logo.png')} style={styles.Logo} />
         </TouchableOpacity>
+        
+        <View>
+        <TextInput placeholder="Pesquisar"  onChangeText={setPesquisa} ></TextInput>
+        <TouchableOpacity  onPress={ListagemFilmes}><Text>Pesquisar</Text></TouchableOpacity>
       </View>
+      </View>
+
+      <View style={styles.flat}>
       <FlatList
         data={filmes}
         renderItem={renderItem}
         keyExtractor={(item) => item.id} 
       />
-
+</View>
       <Footer/>
     </View>
   );
@@ -116,6 +129,9 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
   },
+  flat:{
+    marginTop:70
+  }
 });
 
 export default Listagem;
