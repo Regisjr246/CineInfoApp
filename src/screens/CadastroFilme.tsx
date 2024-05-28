@@ -15,7 +15,7 @@ const CadastroFilme: React.FC = () => {
     const [classificacao, setClassificacao] = useState<string>('');
     const [plataformas, setPlataformas] = useState<string>('');
     const [duracao, setDuracao] = useState<string>('');
-    const [errors, setErrors] = useState<any>({});
+    const [errors, setErrors] = useState<any[]>([]);
     const [message, setMessage] = useState<string>('');
 
 
@@ -66,12 +66,15 @@ const CadastroFilme: React.FC = () => {
         formData.append('plataformas', plataformas);
         formData.append('duracao', duracao);
 
-        const response = await axios.post('http://10.137.11.215:8000/api/filmes/cadastro', formData, {
+        const response = await axios.post('http://10.137.11.233:8000/api/filmes/cadastro', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }            
         });
-    setMessage('Filme cadastrado');
+
+        setErrors(response.data) 
+        //console.log(errors.classi)
+        setMessage('Filme cadastrado');
         setTimeout(() => setMessage(''), 3000);
         setTitulo('');
         setDiretor('');
@@ -95,9 +98,6 @@ const CadastroFilme: React.FC = () => {
 
   const renderError = (name: string) => {
     if (errors[name]) {
-      if (name === 'titulo' && errors[name].unique) {
-        return <Text style={styles.errorText}>Titulo already exists</Text>;
-      }
       return <Text style={styles.errorText}>{errors[name]}</Text>;
     }
     return null;
@@ -115,57 +115,64 @@ const CadastroFilme: React.FC = () => {
                 <Text style={styles.Text1}>--------------- Cadastrar Stream ----------------</Text>
                 
                 <View style={styles.alinhamento}>
+                {renderError('titulo')}
                 <TextInput style={styles.input} placeholder="titulo"
                 value={titulo} onChangeText={setTitulo} multiline/>
-                {renderError('titulo')}
+               
                 </View>
 
                 <View style={styles.alinhamento}>
+                {renderError('diretor')}
                 <TextInput style={styles.input} placeholder="Diretor"
                 value={diretor} onChangeText={setDiretor}/>
-                {renderError('diretor')}
+               
                 </View>
 
                 <View style={styles.alinhamentoGDt}>
+                {renderError('genero')}
                 <TextInput style={styles.inputGenero} placeholder="Genero"
                 value={genero} onChangeText={setGenero}/>
-                {renderError('genero')}
+          
                 </View>
 
                 <View style={styles.alinhamentoCD}>
+                {renderError('classificacao')}
                 <TextInput style={styles.inputClassificacao} placeholder="Classificação"
                 value={classificacao} onChangeText={setClassificacao}/>
-                {renderError('classificacao')}
+               
                 </View>
-
+                {renderError('dt_lancamento')}
                 <View style={styles.alinhamentoGDt}>
                 <TextInput style={styles.inputDate} placeholder="data de lancamento"
                 value={dt_lancamento} onChangeText={setDt_lancamento}/>
-                {renderError('dt_lancamento')}
+              
                 </View>
-
+                {renderError('duracao')}
                 <View style={styles.alinhamentoCD}>
                 <TextInput style={styles.inputDuracao} placeholder="Duracao"
                 value={duracao} onChangeText={setDuracao}/>
-                {renderError('duracao')}
+       
                 </View>
 
                 <View style={styles.alinhamento}>
+                {renderError('sinopse')}
                 <TextInput style={styles.inputSinopse} placeholder="Sinopse"
                 value={sinopse} onChangeText={setSinopse} multiline/>
-                {renderError('sinopse')}
+               
                 </View>
 
                 <View style={styles.alinhamento}>
+                {renderError('elenco')}
                 <TextInput style={styles.input} placeholder="Elenco"
                 value={elenco} onChangeText={setElenco} multiline/>
-                {renderError('elenco')}
+
                 </View>
 
                 <View style={styles.alinhamento}>
+                {renderError('plataformas')}
                 <TextInput style={styles.input} placeholder="plataformas"
                 value={plataformas} onChangeText={setPlataformas}/>
-                {renderError('plataformas')}
+               
                 </View>
 
         

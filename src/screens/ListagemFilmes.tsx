@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, TextInput } from "react-native";
@@ -35,10 +34,10 @@ const ListagemF: React.FC = () => {
 const ListagemFilmes = async () => {
   try {
     if(pesquisa != ""){
-    const response = await axios.get('http://10.137.11.233:8000/api/adm/filmes/pesquisar/'+pesquisa);
+    const response = await axios.get('http://10.137.11.233/api/adm/filmes/pesquisar/'+pesquisa);
     setFilmes(response.data.data);
     } else {
-      const response = await axios.get('http://10.137.11.233:8000/api/adm/filmes/listagem');
+      const response = await axios.get('http://10.137.11.233/api/adm/filmes/listagem');
     setFilmes(response.data.data);
     }
   } catch (error) {
@@ -47,7 +46,7 @@ const ListagemFilmes = async () => {
 }
 
 const Delete = async (id: number) => {
-  axios.delete('http://10.137.11.233:8000/api/adm/filmes/delete/' + id).then(function (response) {ListagemFilmes();}
+  axios.delete('http://10.137.11.233/api/adm/filmes/delete/' + id).then(function (response) {ListagemFilmes();}
   ).catch(function (error) {
   console.log(error)
   ListagemFilmes();
@@ -86,13 +85,13 @@ const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
- 
+
       <View>
         <TouchableOpacity>
           <Image source={require('../assets/images/logo.png')} style={styles.Logo} />
         </TouchableOpacity>
       </View>
-     
+
      <View>
       <TextInput style={styles.pesquisa} placeholder="Pesquisar" onChangeText={setPesquisa} />
         <TouchableOpacity onPress={ListagemFilmes}><Text>Pesquisar</Text></TouchableOpacity>

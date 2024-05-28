@@ -8,11 +8,11 @@ function FooterAdm(): React.ReactElement {
 
     return (
       <View style={styles.footer}>
-        <TouchableOpacity onPress={ () => navigation.navigate('listagem')}>
+        <TouchableOpacity onPress={ () => navigation.navigate('Listagem')}>
         <Image source={require('../assets/images/home.png')} 
           style={styles.footerIcon}/>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={ () => navigation.navigate('Login')}>
             <Image source={require('../assets/images/user.png')} 
             style={styles.footerIcon}/>
         </TouchableOpacity>
@@ -23,18 +23,26 @@ function FooterAdm(): React.ReactElement {
         
         {elementVisible ? ( 
         <View>
-        <TouchableOpacity onPress={()=> navigation.navigate('Cadastro')}
+        <TouchableOpacity onPress={()=> navigation.navigate('CadastroFilme')}
         style={styles.cadastros}>
             <Text style={styles.cadastrosText}>Cadastro filmes</Text>
         </TouchableOpacity> 
 
-        <TouchableOpacity style={styles.cadastros}>
+        <TouchableOpacity onPress={()=> navigation.navigate('CadastroFilme')}
+        style={styles.cadastros}>
+            <Text style={styles.cadastrosText}>Cadastro filmes</Text>
+        </TouchableOpacity>  
+
+        <TouchableOpacity onPress={()=> navigation.navigate('AtualizarFilme')}
+        style={styles.cadastros}>
         <Text style={styles.cadastrosText}>Cadastro animação</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.cadastros}> 
+        <TouchableOpacity onPress={()=> navigation.navigate('CadastroSerie')}
+        style={styles.cadastros}> 
             <Text style={styles.cadastrosText}>Cadastro serie</Text>
         </TouchableOpacity>
+        
         </View>
         ) : null} 
 
@@ -54,7 +62,7 @@ const styles = StyleSheet.create({
         marginTop: -50,
         left: 70,
         margin: 10,
-        backgroundColor:'white',
+        backgroundColor: 'white'
     },
     cadastrosText: {
         fontWeight: 'bold',
