@@ -109,33 +109,23 @@ const EditarFilmes: React.FC = () => {
               </View>
 
               <View style={styles.alinhamento}>
-                  <TextInput style={styles.input}
+                  <TextInput style={styles.inputGenero}
                       value={genero}
                       onChangeText={SetGenero}
                   />
               </View>
 
               <View style={styles.alinhamento}>
-                  <TextInput style={styles.input}
+                  <TextInput style={styles.inputDate}
                       value={dt_lancamento}
                       onChangeText={SetDt_lancamento}
                   />
               </View>
 
+            
+
               <View style={styles.alinhamento}>
-                  <TextInput style={styles.input}
-                      value={sinopse}
-                      onChangeText={SetSinopse}
-                  />
-              </View>
-              <View style={styles.alinhamento}>
-                  <TextInput style={styles.input}
-                      value={elenco}
-                      onChangeText={SetElenco}
-                  />
-              </View>
-              <View style={styles.alinhamento}>
-                  <TextInput style={styles.input}
+                  <TextInput style={styles.inputClassificacao}
                       value={classificacao}
                       onChangeText={SetClassificacao}
                       multiline
@@ -143,18 +133,35 @@ const EditarFilmes: React.FC = () => {
 
               </View>
               <View style={styles.alinhamento}>
+                  <TextInput style={styles.inputDuracao}
+                      value={duracao}
+                      onChangeText={SetDuracao}
+                  />
+              </View>
+
+              <View style={styles.alinhamento}>
+                  <TextInput style={styles.inputSinopse}
+                      value={sinopse}
+                      onChangeText={SetSinopse}
+                  />
+              </View>
+
+
+              <View style={styles.alinhamento}>
+                  <TextInput style={styles.input}
+                      value={elenco}
+                      onChangeText={SetElenco}
+                  />
+              </View>
+             
+              <View style={styles.alinhamento}>
                   <TextInput style={styles.input}
                       value={plataformas}
                       onChangeText={SetPlataformas}
                   />
               </View>
 
-              <View style={styles.alinhamento}>
-                  <TextInput style={styles.input}
-                      value={duracao}
-                      onChangeText={SetDuracao}
-                  />
-              </View>
+            
               <View style={styles.alinhamento}>
               <TouchableOpacity onPress={atualizar} style={styles.input2}>
                   <Text style={styles.TextVolta}>Editar</Text>
@@ -261,55 +268,58 @@ const styles = StyleSheet.create({
       marginLeft: 'auto',
       marginRight: 'auto',
   },
-  inputDate: {
-      marginBottom: 20,
-      paddingHorizontal: 10,
-      borderRadius: 8,
-      borderWidth: 1,
-      borderColor: '#D94F04',
-      color: 'black',
-      width: '45%',
-  },
-  inputDuracao: {
-      marginBottom: 20,
-      paddingHorizontal: 10,
-      borderRadius: 8,
-      borderWidth: 1,
-      borderColor: '#D94F04',
-      color: 'black',
-      width: '45%',
-      marginLeft: '52%',
-      marginVertical: -70
-  },
-  inputClassificacao: {
-      marginBottom: 20,
-      paddingHorizontal: 10,
-      borderRadius: 8,
-      borderWidth: 1,
-      borderColor: '#D94F04',
-      color: 'black',
-      width: '45%',
-      marginLeft: '52%',
-      marginVertical: -70,
-  },
-  inputGenero: {
-      marginBottom: 20,
-      paddingHorizontal: 10,
-      borderRadius: 8,
-      borderWidth: 1,
-      borderColor: '#D94F04',
-      color: 'black',
-      width: '45%',
-  },
-  inputSinopse: {
-      marginBottom: 20,
-      paddingHorizontal: 10,
-      borderRadius: 8,
-      borderWidth: 1,
-      borderColor: '#D94F04',
-      color: 'black',
-      width: 360,
-      height: 70,
-  }
-})
+  inputDate:{
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#D94F04',
+    color: 'black',
+    width: '40%',
+    marginLeft:200,
+    marginVertical:-70
+},
+inputDuracao:{
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#D94F04',
+    color: 'black',
+    width: '40%',
+    marginLeft:'52%',
+    marginVertical:-70
+},
+inputClassificacao:{
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#D94F04',
+    color: 'black',
+    width: '45%',
+    marginLeft:'-45%',
+    marginVertical: 10,
+},
+inputGenero:{
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#D94F04',
+    color: 'black',
+    width: '45%',
+    marginLeft:-180
+},
+inputSinopse:{
+marginBottom: 20,
+paddingHorizontal: 10,
+borderRadius: 8,
+borderWidth: 1,
+borderColor: '#D94F04',
+color: 'black',
+width: 360,
+height: 70,
+}
+});
 export default EditarFilmes;
