@@ -24,7 +24,7 @@ const ListagemF: React.FC = () => {
   const [pesquisa, setPesquisa] = useState<string>("");
   const [filmes, setFilmes] = useState<Filme[]>([]);
   const [elementVisible, setElementVisible] = useState<string | null>(null);
-
+  const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
     ListagemFilmes();
   }, []);
@@ -90,6 +90,11 @@ const navigation = useNavigation();
         <TouchableOpacity>
           <Image source={require('../assets/images/logo.png')} style={styles.Logo} />
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => ListagemFilmes()} style={styles.button}>
+          <Image source={require('../assets/images/refresh.png')} style={styles.refresh} />
+        </TouchableOpacity>
+
       </View>
 
      <View>
@@ -101,6 +106,11 @@ const navigation = useNavigation();
         data={filmes}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        refreshing={refreshing}
+        onRefresh={() => {
+          setRefreshing(true);
+          ListagemFilmes().then(() => setRefreshing(false));
+        }}
       />
 
     <FooterAdm/>
@@ -163,6 +173,13 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
   },
+ 
+    refresh: {
+      height: 80,
+      width: 70,
+      marginTop: -180,
+      left: 150
+  }
 });
 
 export default ListagemF;

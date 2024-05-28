@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Icons from "./screens/Icons";
+import FooterAdm from "./components/FooterAdm";
 
 
 
@@ -56,11 +57,13 @@ function LoginScreen(): JSX.Element {
                 onPress={() => { login() }}>
                 <Text style={styles.buttonText}>Entrar</Text>
             </TouchableOpacity>
-
-
-
+         
+<View style={styles.footer}>            
+    <FooterAdm/>
+</View>
 
             </ScrollView>
+            
         </View>
 
            
@@ -145,6 +148,9 @@ const styles = StyleSheet.create({
        marginRight:'auto',
 
         
+    },
+    footer:{
+        marginTop:90
     }
 })
 export default LoginScreen;
