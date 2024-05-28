@@ -35,10 +35,10 @@ const ListagemF: React.FC = () => {
 const ListagemFilmes = async () => {
   try {
     if(pesquisa != ""){
-    const response = await axios.get('http://10.137.11.213/api/filmes/pesquisar/'+pesquisa);
+    const response = await axios.get('http://10.137.11.233:8000/api/adm/filmes/pesquisar/'+pesquisa);
     setFilmes(response.data.data);
     } else {
-      const response = await axios.get('http://10.137.11.213/api/filmes/listagem');
+      const response = await axios.get('http://10.137.11.233:8000/api/adm/filmes/listagem');
     setFilmes(response.data.data);
     }
   } catch (error) {
@@ -47,7 +47,7 @@ const ListagemFilmes = async () => {
 }
 
 const Delete = async (id: number) => {
-  axios.delete('http://10.137.11.213/api/filmes/delete/' + id).then(function (response) {ListagemFilmes();}
+  axios.delete('http://10.137.11.233:8000/api/adm/filmes/delete/' + id).then(function (response) {ListagemFilmes();}
   ).catch(function (error) {
   console.log(error)
   ListagemFilmes();
