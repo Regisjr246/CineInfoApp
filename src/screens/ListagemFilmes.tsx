@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, TextInput } from "react-native";
 import FooterAdm from "../components/FooterAdm";
 import { useNavigation } from "@react-navigation/native";
+import { ScrollView } from "react-native-gesture-handler";
 
 
 
@@ -25,6 +26,7 @@ const ListagemF: React.FC = () => {
   const [filmes, setFilmes] = useState<Filme[]>([]);
   const [elementVisible, setElementVisible] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  
   useEffect(() => {
     ListagemFilmes();
   }, []);
@@ -54,21 +56,24 @@ const Delete = async (id: number) => {
 }
 
 
+
 const renderItem = ({ item }: { item: Filme }) => (
   <View style={styles.item} key={item.id}>
+    <ScrollView>
     <TouchableOpacity onPress={() =>
         setElementVisible(elementVisible === item.id ? null : item.id)} > 
-    <Text style={styles.nameText}>{item.titulo}</Text>
-    <Text style={styles.text}>{item.genero}</Text>
-    <Text style={styles.numbertext}>{item.dt_lancamento}</Text>
-    <Text style={styles.text}>{item.classificacao}</Text>
-    {elementVisible === item.id && ( 
+        <Image source={require('../assets/images/AvadaKedavra.jpg')} style={styles.AvadaKedavra}/>
+        {elementVisible === item.id && ( 
       <View >
-    <Text style={styles.text}>{item.diretor} </Text>
-    <Text style={styles.text}>{item.sinopse}</Text>
-    <Text style={styles.text}>{item.elenco}</Text>
+    <Text style={styles.tituloText}>{item.titulo}</Text>
+    <Text style={styles.generoText}>{item.genero}</Text>
+    <Text style={styles.classificacaoText}> {item.classificacao}</Text>
+    <Text style={styles.dataText}>Lançamento {item.dt_lancamento}</Text>
+    <Text style={styles.text}>Diretor: {item.diretor}</Text>
+    <Text style={styles.text}>sinopse: {item.sinopse}</Text>
+    <Text style={styles.text}>elenco: {item.elenco}</Text>
     <Text style={styles.text}>{item.plataformas}</Text>
-    <Text style={styles.numbertext}>{item.duracao}</Text>
+    <Text style={styles.duracaoText}>Duração: {item.duracao}</Text>
     <TouchableOpacity onPress={() => Delete(item.id)}>
     <Image source={require('../assets/images/trash.png')}style={styles.trash}/>
     </TouchableOpacity>
@@ -78,8 +83,10 @@ const renderItem = ({ item }: { item: Filme }) => (
     </View >
     )} 
       </TouchableOpacity>
+      </ScrollView>
   </View>
 );
+
 
 const navigation = useNavigation();
 
@@ -106,6 +113,7 @@ const navigation = useNavigation();
         data={filmes}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        horizontal
         refreshing={refreshing}
         onRefresh={() => {
           setRefreshing(true);
@@ -119,13 +127,16 @@ const navigation = useNavigation();
 };
 
 const styles = StyleSheet.create({
+ 
     container: {
         flex: 1,
         backgroundColor: 'white'
     },
     editarImage: {
-      height: 50,
-      width: 120
+      height: 60,
+      width: 60,
+      marginTop: -43,
+      left: 30
   },
   pesquisa:{
     borderWidth:1,
@@ -135,36 +146,67 @@ const styles = StyleSheet.create({
     marginLeft:'auto',
     marginRight:'auto'  
   },
+
   item: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: 'black',
-    marginStart: 110,
-    marginTop: 10
+    marginTop: 10,
+    width: 175,
+    marginLeft:20
   },
   text: {
     fontSize: 25,
     fontWeight: 'bold',
     color: 'black',
   },
+  AvadaKedavra: {
+    borderRadius: 20,
+    height: 250,
+    width: 170,
+    marginTop: 20,
+    marginRight:10
+  },
   trash: {
-    height: 50,
-    width: 50,
+    height: 30,
+    width: 30,
   },
   button: {
     height: 50,
     width: 50,
     left: 180,
   },
-  nameText: {
+  tituloText: {
     fontSize: 25,
     fontWeight: 'bold',
     color: 'black',
 },
-    numbertext: {
-    fontSize: 20,
+  generoText: {
+    fontSize: 18,
     fontWeight: 'bold',
     color: 'black',
+},
+  classificacaoText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
+    backgroundColor: '#DC143C',
+    width: 48,
+    borderRadius: 10
+},
+  dataText: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: 'black',
+
+},
+  duracaoText: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: 'black',
+},
+  refresh: {
+    height: 70,
+    width: 70,
+    marginTop: -180,
+    left: 150
 },
   Logo: {
     height: 150,
@@ -173,13 +215,6 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
   },
- 
-    refresh: {
-      height: 80,
-      width: 70,
-      marginTop: -180,
-      left: 150
-  }
 });
 
 export default ListagemF;
