@@ -28,7 +28,7 @@ const Listagem: React.FC = () => {
 
   const ListagemFilmes = async () => {
     try {
-      const response = await axios.get('http://10.137.11.213:8000/api/filmes/listagem');
+      const response = await axios.get('http://10.137.11.215:8000/api/filmes/listagem');
       if (response.status === 200) {
         setFilmes(response.data.data);
         console.log(filmes);
@@ -39,11 +39,11 @@ const Listagem: React.FC = () => {
   }
 
   const Delete = async (id: number) => {
-    axios.delete('http://10.137.11.213:8000/api/adm/filmes/delete/' + id).then(function (response) {}
+    axios.delete('http://10.137.11.215:8000/api/adm/filmes/delete/' + id).then(function (response) { }
     ).catch(function (error) {
-    console.log(error)
-  })
-}
+      console.log(error)
+    })
+  }
 
   const renderItem = ({ item }: { item: Filme }) => (
     <View style={styles.item} key={item.id}>
@@ -51,22 +51,22 @@ const Listagem: React.FC = () => {
       <Text style={styles.text}>{item.genero}</Text>
       <Text style={styles.numbertext}>{item.dt_lancamento}</Text>
       <Text style={styles.text}>{item.classificacao}</Text>
-      {elementVisible === item.id && ( 
+      {elementVisible === item.id && (
         <View >
-      <Text style={styles.text}>{item.diretor} </Text>
-      <Text style={styles.text}>{item.sinopse}</Text>
-      <Text style={styles.text}>{item.elenco}</Text>
-      <Text style={styles.text}>{item.plataformas}</Text>
-      <Text style={styles.numbertext}>{item.duracao}</Text>
-      <TouchableOpacity onPress={() => Delete(item.id)}>
-      <Image source={require('../assets/images/trash.png')}style={styles.trash}/>
+          <Text style={styles.text}>{item.diretor} </Text>
+          <Text style={styles.text}>{item.sinopse}</Text>
+          <Text style={styles.text}>{item.elenco}</Text>
+          <Text style={styles.text}>{item.plataformas}</Text>
+          <Text style={styles.numbertext}>{item.duracao}</Text>
+          <TouchableOpacity onPress={() => Delete(item.id)}>
+            <Image source={require('../assets/images/trash.png')} style={styles.trash} />
+          </TouchableOpacity>
+        </View >
+      )}
+      <TouchableOpacity onPress={() =>
+        setElementVisible(elementVisible === item.id ? null : item.id)} >
+        <Image source={require('../assets/images/arrow.png')} style={styles.button} />
       </TouchableOpacity>
-      </View >
-      )} 
-          <TouchableOpacity onPress={() =>
-          setElementVisible(elementVisible === item.id ? null : item.id)} > 
-          <Image source={require('../assets/images/arrow.png')} style={styles.button} />
-        </TouchableOpacity>
     </View>
   );
 
@@ -80,19 +80,19 @@ const Listagem: React.FC = () => {
       <FlatList
         data={filmes}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id} 
+        keyExtractor={(item) => item.id}
       />
 
-      <FooterAdm/>
+      <FooterAdm />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'white'
-    },
+  container: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
   item: {
     fontSize: 15,
     fontWeight: '500',
@@ -118,12 +118,12 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     color: 'black',
-},
-    numbertext: {
+  },
+  numbertext: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'black',
-},
+  },
   Logo: {
     height: 150,
     width: 300,
