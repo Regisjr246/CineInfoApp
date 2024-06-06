@@ -43,7 +43,7 @@ const CadastroFilme: React.FC = () => {
     } else if (dt_lancamento.length < 10) {
       newErrors.dt_lancamento = "O campo dt_lancamento deve ser:ANO-MES-DIA ";
     } else if (dt_lancamento.length > 10) {
-      newErrors.dt_lancamento = "O campo duracao ter no maximo 10 caracteres";
+      newErrors.dt_lancamento = "O campo dt_lancamento ter no maximo 10 caracteres";
     }
 
 
@@ -92,10 +92,10 @@ const CadastroFilme: React.FC = () => {
 
     if (!duracao) {
       newErrors.duracao = "O campo duracao é obrigatório";
-    } else if (duracao.length < 9) {
+    } else if (duracao.length < 2) {
       newErrors.duracao = "O campo duracao ser: Hora:Min:Segundos";
-    } else if (duracao.length > 9) {
-      newErrors.duracao = "O campo duracao ter no maximo 11 caracteres";
+    } else if (duracao.length > 8) {
+      newErrors.duracao = "O campo duracao ter no maximo 8 caracteres";
     }
 
     setErrors(newErrors);
