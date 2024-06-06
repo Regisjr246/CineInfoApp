@@ -15,37 +15,89 @@ const CadastroFilme: React.FC = () => {
   const [classificacao, setClassificacao] = useState<string>('');
   const [plataformas, setPlataformas] = useState<string>('');
   const [duracao, setDuracao] = useState<string>('');
-  const [errors, setErrors] = useState<any[]>([]);
+  const [errors, setErrors] = useState<any>({});
   const [message, setMessage] = useState<string>('');
-
+  ;
 
   const validateForm = () => {
     const newErrors: any = {};
 
     if (!titulo) {
-      newErrors.titulo = "O campo título é obrigatório";
+      newErrors.titulo = "O campo titulo é obrigatório";
+    } else if (titulo.length < 2) {
+      newErrors.titulo = "O campo titulo deve ter pelo menos 2 caracteres";
+    } else if (titulo.length > 100) {
+      newErrors.titulo = "O campo titulo deve ter no maximo 100   caracteres";
     }
+
     if (!diretor) {
       newErrors.diretor = "O campo diretor é obrigatório";
+    } else if (diretor.length < 3) {
+      newErrors.diretor = "O campo diretor deve ter pelo menos 3 caracteres";
+    } else if (diretor.length > 100) {
+      newErrors.diretor = "O campo diretor deve ter no maximo 100 caracteres";
     }
-    if (!genero) {
-      newErrors.genero = "O campo gênero é obrigatório";
-    }
+
     if (!dt_lancamento) {
-      newErrors.dt_lancamento = "O campo data de lançamento é obrigatório";
+      newErrors.dt_lancamento = "O campo dt_lancamento é obrigatório"
+    } else if (dt_lancamento.length < 10) {
+      newErrors.dt_lancamento = "O campo dt_lancamento deve ser:ANO-MES-DIA ";
+    } else if (dt_lancamento.length > 10) {
+      newErrors.dt_lancamento = "O campo duracao ter no maximo 10 caracteres";
     }
+
+
+
+    if (!genero) {
+      newErrors.genero = "O campo genero é obrigatório";
+    } else if (genero.length < 3) {
+      newErrors.genero = "O campo genero deve ter pelo menos 3 caracteres";
+    } else if (genero.length > 100) {
+      newErrors.genero = "O campo genero deve ter pelo menos 100 caracteres";
+    }
+
+
     if (!sinopse) {
       newErrors.sinopse = "O campo sinopse é obrigatório";
+    } else if (sinopse.length < 3) {
+      newErrors.sinopse = "O campo sinopse deve ter pelo menos 3 caracteres";
+    } else if (sinopse.length > 1000) {
+      newErrors.sinopse = "O campo sinopse deve ter pelo menos 1000 caracteres";
     }
+
+    if (!elenco) {
+      newErrors.elenco = "O campo elenco é obrigatório";
+    } else if (elenco.length < 3) {
+      newErrors.elenco = "O campo elenco deve ter pelo menos 3 caracteres";
+    } else if (elenco.length > 100) {
+      newErrors.elenco = "O campo elenco deve ter pelo maximo 100 caracteres";
+    }
+
     if (!classificacao) {
-      newErrors.classificacao = "O campo classificação é obrigatório";
+      newErrors.classificacao = "O campo classificacao é obrigatório";
+    } else if (classificacao.length < 3) {
+      newErrors.classificacao = "O campo classificacao deve ter pelo menos 3 caracteres";
+    } else if (classificacao.length > 15) {
+      newErrors.classificacao = "O campo classificacao deve ter no maximo 15 caracteres";
     }
+
+
     if (!plataformas) {
       newErrors.plataformas = "O campo plataformas é obrigatório";
+    } else if (plataformas.length < 3) {
+      newErrors.plataformas = "O campo plataformas deve ter pelo menos 3 caracteres";
+    } else if (plataformas.length > 255) {
+      newErrors.plataformas = "O campo plataformas deve ter no maximo 255 caracteres";
     }
+
     if (!duracao) {
-      newErrors.duracao = "O campo duração é obrigatório";
+      newErrors.duracao = "O campo duracao é obrigatório";
+    } else if (duracao.length < 9) {
+      newErrors.duracao = "O campo duracao ser: Hora:Min:Segundos";
+    } else if (duracao.length > 9) {
+      newErrors.duracao = "O campo duracao ter no maximo 11 caracteres";
     }
+
     setErrors(newErrors);
 
     return !Object.keys(newErrors).length;
@@ -105,6 +157,7 @@ const CadastroFilme: React.FC = () => {
       <TouchableOpacity>
         <Image source={require('../assets/images/logo.png')} style={styles.Logo} />
       </TouchableOpacity>
+      <View style={styles.alinha}>{message && <View style={styles.message}><Text style={styles.messageText}>{message}</Text></View>}</View>
 
       <ScrollView style={styles.scroll}>
 
@@ -298,7 +351,24 @@ const styles = StyleSheet.create({
     color: 'black',
     width: 360,
     height: 70,
+  },
+  message: {
+    backgroundColor: 'green',
+    padding: 8,
+    borderRadius: 5,
+    marginTop: 1,
+    alignItems: 'center',
+    width: 300
+
+  },
+  messageText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  alinha: {
+    alignItems: 'center'
   }
-})
+});
+
 
 export default CadastroFilme;

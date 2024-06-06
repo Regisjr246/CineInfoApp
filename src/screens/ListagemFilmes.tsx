@@ -33,7 +33,8 @@ const ListagemF: React.FC = () => {
       if (pesquisa != "") {
         const response = await axios.get('http://10.137.11.215/api/adm/filmes/pesquisar/' + pesquisa);
         setFilmes(response.data.data);
-      } else {
+      } 
+      else {
         const response = await axios.get('http://10.137.11.215/api/adm/filmes/listagem');
         setFilmes(response.data.data);
       }
@@ -177,8 +178,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     backgroundColor: '#DC143C',
-    width: 48,
-    borderRadius: 10
+    width: 120,
+    borderRadius: 10,
+    alignItems:'center',
+    padding:5
   },
   dataText: {
     fontSize: 15,
